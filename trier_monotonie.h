@@ -1,3 +1,6 @@
+#ifndef TRIER_H
+#define TRIER_H
+
 /*
   * Provides:
   * - 
@@ -9,3 +12,5 @@
 extern void trier_monotonie (list * listeSource, int triInverse, int triSansRep);
 
 /* A COMPLETER SELON LE .C */
+
+#endif

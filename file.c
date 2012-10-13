@@ -26,12 +26,14 @@ int file_creer ( file * file_lieu,
 		file_lieu.copier = copier_int();
 	
 	file_lieu.liberer = free_();
-*/}
+*/
+}
 
 void copier ( void * valeur , void ** lieu )
 {
-    *lieu = malloc(sizeof(*valeur));
+/*    *lieu = malloc(sizeof(*valeur));
 	(*(*lieu)) = *valeur;
+*/
 }
 
 void liberer ( void ** lieu )
