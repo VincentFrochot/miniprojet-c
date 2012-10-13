@@ -5,5 +5,7 @@
   * Author: Simon Jornet / Vincent Frochot
   * Copyright: 2012 - Simon Jornet, Vincent Frochot
  */
- 
-extern void trier_monotonie (/*...*/);
+
+extern void trier_monotonie (list * listeSource, int triInverse, int triSansRep);
+
+/* A COMPLETER SELON LE .C */
