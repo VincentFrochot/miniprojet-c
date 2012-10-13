@@ -17,6 +17,7 @@ typedef struct maillon {
 } maillon;
 
 
+
 int file_creer ( file * file_lieu,
                         void ( * copier ) ( void * valeur , void ** lieu ) ,
                         void ( * liberer ) ( void ** lieu ) )
