@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "trier_monotonie.o"
+#include "trier_monotonie.c"
 
 
 int main (int argc, char *argv[])
