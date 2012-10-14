@@ -8,34 +8,57 @@
 
 #include "trier_monotonie.h"
 
-void * tri_monotonie (void *fileSource, void *couple)
+void * fusion (char tab1[], char tab2[])
 {
-    /* DECOUPAGE */
-    int i;
-    int tailleFile = 0;
-
-    while (*fileSource.valeur != NULL)
+    int i, taille1 = 0, taille2 =0;
+    
+    /* Calcul des tailles des tableaux */
+    for (i=0; tab1[i] != '\0'; i++)
+        taille1++;
+    for (i=0; tab2[i] != '\0'; i++)
+        taille2++;
+    
+    char tabNew [taille1+taille2];
+    
+    /* Tri des tableaux et copie dans le nouveau tableau trié */
+    if (tab1[0] > tab2[0])
     {
-        i++;
-    }
-    tailleFile = i;
-
-    if (tailleFile == 1) /* File à un seul élément (aucun tri) */
-    {
-        *couple = *fileSource;
+        for (i=0; i < taille1; i++)
+            tabNew[i] = tab2[i];
+        for (i=taille2; i < taille1+taille2; i++)
+            tabNew[i] = tab1[i];
     }
     else
     {
-        if (tailleFile%2 == 0) /* Nombre d'éléments pair */
-        {
-            *couple = {trier_monotonie (/* Nouvelle file de taille tailleFile/2 */, /* Nouveau couple */), trier_monotonie (/* Nouvelle file de taille tailleFile/2 */, /* Nouveau couple */)};
-        }
-        else
-        {
-            *couple = {trier_monotonie (/* Nouvelle file de taille tailleFile/2+1 */, /* Nouveau couple */), trier_monotonie (/* Nouvelle file de taille tailleFile/2 */, /* Nouveau couple */)};
-        }
+        for (i=0; i < taille2; i++)
+            tabNew[i] = tab1[i];
+        for (i=taille1; i < taille1+taille2; i++)
+            tabNew[i] = tab2[i];
     }
+    
+    return tabNew;
+}
 
-    /* FUSION */
-    *couple
+void * decoupe (char tab[], int longueur)
+{
+    int i;
+    void * res;
+    char tabTrie [longueur];
+
+
+    if (longueur == 1) /* File à un seul élément (aucun tri) */
+        return tab[0];
+    
+    else
+    {
+        if (longueur%2 == 0) /* Nombre d'éléments pair */
+            tabTrie = fusion(decoupe(&(tab[0]),longueur/2), decoupe(&(tab[longueur/2]),longueur/2));
+        else /* Nombre d'éléments impair */
+            tabTrie = fusion(decoupe(&tab[0],longueur/2+1), decoupe(&(tab[longueur/2+1]),longueur/2));
+    }
+    /* Test */
+    for (i=0; i < longueur; i++)
+        printf("%c", tabTrie[i]);
+    
+    return tabTrie;
 }

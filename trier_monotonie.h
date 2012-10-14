@@ -9,8 +9,8 @@
   * Copyright: 2012 - Simon Jornet, Vincent Frochot
  */
 
-extern void trier_monotonie (list * listeSource, int triInverse, int triSansRep);
+extern void * fusion (char tab1[], char tab2[]);
+extern void * decoupe (char tab[], int longueur);
 
-/* A COMPLETER SELON LE .C */
 
 #endif
