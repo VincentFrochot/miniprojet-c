@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "trier_monotonie.o"
+
 
 int main (int argc, char *argv[])
 {    
@@ -9,6 +11,8 @@ int main (int argc, char *argv[])
 	int triInverse=0, triSansRep=0, entreeAutre=0, sortieAutre=0; /* variables d'options */
 	char * entree = NULL;
 	char * sortie = NULL;
+	char tableau [5] = {7,5,9,1,3}; /* Variables de test */
+	void * resultat;
 
 	if (argc > 1)
 	{
@@ -34,8 +38,10 @@ int main (int argc, char *argv[])
 			}
 		}
 		
-		/* TEST */
-		printf("triInverse: %d\ntriSansRep: %d\nentreeAutre: %d\nentree: %s\nsortieAutre: %d\nsortie: %s\n", triInverse, triSansRep, entreeAutre, entree, sortieAutre, sortie);
+		/* Test des paramètres
+		printf("triInverse: %d\ntriSansRep: %d\nentreeAutre: %d\nentree: %s\nsortieAutre: %d\nsortie: %s\n", triInverse, triSansRep, entreeAutre, entree, sortieAutre, sortie); */
+		
+		resultat = decoupe(tableau,5);
 	}
 
 	return 0;
