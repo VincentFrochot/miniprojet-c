@@ -9,8 +9,8 @@
   * Copyright: 2012 - Simon Jornet, Vincent Frochot
  */
 
-extern void * fusion (char tab1[], char tab2[]);
-extern void * decoupe (char tab[], int longueur);
+extern char * fusion (char tab1[], char tab2[]);
+extern char * decoupe (char tab[], int longueur);
 
 
 #endif

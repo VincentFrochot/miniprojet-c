@@ -1,3 +1,6 @@
+#include "stdio.h"
+#include "trier_monotonie.h"
+
 /*
   * Provides:
   * - 
@@ -6,9 +9,8 @@
   * Copyright: 2012 - Simon Jornet, Vincent Frochot
  */
 
-#include "trier_monotonie.h"
 
-void * fusion (char tab1[], char tab2[])
+char * fusion (char tab1[], char tab2[])
 {
     int i, taille1 = 0, taille2 =0;
     
@@ -39,7 +41,7 @@ void * fusion (char tab1[], char tab2[])
     return tabNew;
 }
 
-void * decoupe (char tab[], int longueur)
+char * decoupe (char tab[], int longueur)
 {
     int i;
     void * res;
@@ -47,7 +49,7 @@ void * decoupe (char tab[], int longueur)
 
 
     if (longueur == 1) /* File à un seul élément (aucun tri) */
-        return tab[0];
+        return tab;
     
     else
     {
@@ -56,6 +58,7 @@ void * decoupe (char tab[], int longueur)
         else /* Nombre d'éléments impair */
             tabTrie = fusion(decoupe(&tab[0],longueur/2+1), decoupe(&(tab[longueur/2+1]),longueur/2));
     }
+    
     /* Test */
     for (i=0; i < longueur; i++)
         printf("%c", tabTrie[i]);
