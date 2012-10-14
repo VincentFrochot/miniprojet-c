@@ -29,4 +29,5 @@ extern int file_creer ( file * file_lieu,
 extern void copier ( void * valeur , void ** lieu ) ;
 extern void liberer ( void ** lieu ) ;
 
+
 #endif
