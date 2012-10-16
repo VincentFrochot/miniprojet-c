@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "trier_monotonie.c"
-
+#include "file.h"
+#include "trier.h"
 
 int main (int argc, char *argv[])
 {    
@@ -13,7 +13,17 @@ int main (int argc, char *argv[])
 	char * sortie = NULL;
 	char tableau [5] = {7,5,9,1,3}; /* Variables de test */
 	void * resultat;
-
+	
+	file f;
+	int res;
+	
+	res = file_creer(f, &copier, &liberer);
+	if ( res )
+		return res;
+	printf("PLOP\n");
+	
+	
+	
 	if (argc > 1)
 	{
 		for ( i=1 ; i < argc ; i++ ) 
@@ -41,8 +51,23 @@ int main (int argc, char *argv[])
 		/* Test des paramètres
 		printf("triInverse: %d\ntriSansRep: %d\nentreeAutre: %d\nentree: %s\nsortieAutre: %d\nsortie: %s\n", triInverse, triSansRep, entreeAutre, entree, sortieAutre, sortie); */
 		
-		resultat = decoupe(tableau,5);
+/*		resultat = decoupe(tableau,5); */
 	}
 
 	return 0;
+
+
+
+	printf("PLOP\n");
+	return EXIT_SUCCESS;
+}
+
+void copier ( void * valeur , void ** lieu )
+{
+	
+}
+
+void liberer ( void ** lieu )
+{
+
 }

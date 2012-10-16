@@ -1,4 +1,5 @@
-#include "stdio.h"
+#include <stdio.h>
+#include <stdlib.h>
 #include "trier_monotonie.h"
 
 /*
@@ -9,18 +10,29 @@
   * Copyright: 2012 - Simon Jornet, Vincent Frochot
  */
 
+/*
+file * fusion (file * f1, file * f2)
+{
+	
+} 
+ 
+file ** division ()
+{
+	
+}
+*/
+
 
 char * fusion (char tab1[], char tab2[])
 {
     int i, taille1 = 0, taille2 =0;
-    
+    char * tabNew = (char *) malloc( (taille1+taille2) * sizeof(char) );    
+	
     /* Calcul des tailles des tableaux */
     for (i=0; tab1[i] != '\0'; i++)
         taille1++;
     for (i=0; tab2[i] != '\0'; i++)
         taille2++;
-    
-    char tabNew [taille1+taille2];
     
     /* Tri des tableaux et copie dans le nouveau tableau trié */
     if (tab1[0] > tab2[0])
@@ -37,7 +49,7 @@ char * fusion (char tab1[], char tab2[])
         for (i=taille1; i < taille1+taille2; i++)
             tabNew[i] = tab2[i];
     }
-    
+
     return tabNew;
 }
 
