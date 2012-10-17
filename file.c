@@ -8,34 +8,45 @@
 
 #include "file.h"
 
+/*
+	La fonction enfiler() alloue dynamique de la mémoire, il est donc nécessaire de la désallouer dans défiler().
+	La file est donc observable : on peut accéder à l'élément de tete de file.
+*/
 
+
+
+/*
+	Pointeurs de fonctions copier() et liberer() afin que chaque maillon puisse stocker le type de donnees de son choix.
+*/
 typedef struct maillon 
 {
 	void * valeur;
 	struct maillon * suivant;
-	void ( * copier ) ( void * valeur , void ** lieu );
-	void ( * liberer ) ( void ** lieu );
 } maillon;
 
 
+static int file_vide ( file * f ) 
+{
+	if ( NULL == (*f).tete )
+		return 1;
+	return 0;
+}
+
+/* file_lieu a deja ete alloue dynamiquement, il ne reste qu'a initialiser ses variables */
 int file_creer (	file * file_lieu,
 					void ( * copier ) ( void * valeur , void ** lieu ) ,
 					void ( * liberer ) ( void ** lieu ) ) 
 {
-	maillon * m 	= (maillon *) malloc(sizeof(maillon));
-	if (NULL == m)
-		return 1;
-	(*m).valeur		= NULL;
-	(*m).suivant 	= NULL;
-	(*m).copier		= copier;
-	(*m).liberer	= liberer;
-	(*file_lieu) 	= (file *)m;
+	(*file_lieu).copier		= copier;
+	(*file_lieu).liberer	= liberer;
+	(*file_lieu).tete 		= NULL;
+	(*file_lieu).queue 		= NULL;
 	return 0;
 }
 
-void file_detruire ( file * f)
+void file_detruire ( file * f )
 {
-	while(!file_vide(f))
+	while( !file_vide(f) )
 		defiler(f);
 	free(f);
 }
@@ -48,50 +59,35 @@ void enfiler_file(file * source, file * dest)
 	}
 }
 */
-void enfiler(file * f, void * value) 
+int enfiler( file * f, void * value ) 
 {
 	maillon * m	= (maillon *) malloc(sizeof(maillon));
-	if (NULL == m)
-		return ;
-	(*(maillon *)f).copier(value, (*m).valeur);
-	(*m).suivant 	= (maillon *)f;
-	(*f)			= m;
+	if ( NULL == m )
+		return 0;
+	(*f).copier( value, (*m).valeur );
+	(*m).suivant 	= (*f).tete;
+	(*f).queue		= m;
+	if ( file_vide( f ) )
+		(*f).tete	= m;
+	return 1;
 }
 
-extern void * tete (file * f)
-{
-	maillon * temp = (maillon *)f;
-	if(file_vide(f))
-		return NULL;
-	while (NULL != (*temp).suivant)
-	{
-		temp = (*temp).suivant;
-	}
-	return temp;
-}
-
-
-/* Libère la mémoire de tête de file */
 void defiler(file * f)
 {
-	maillon * temp, * nouvelle_tete;
-	if(file_vide(f))
+	if( file_vide(f) )
 		return;
-	/* marche jusqu'en tête de file... */	
-	while ( NULL != (*temp).suivant )
-	{
-		nouvelle_tete	= temp;
-		temp			= (*temp).suivant;
-	}
-	(*nouvelle_tete).suivant = NULL;
-	(*temp).liberer((*temp).valeur);
-	free(temp);
+	(*f).tete = ( *(*f).tete ).suivant;
+	(*f).liberer( (void **)&((*f).tete) );
+	if ( file_vide(f) )
+		(*f).queue = NULL;
 }
 
-
-int file_vide (file * f) 
+void * tete ( file * f )
 {
-	if ( NULL == (*(maillon *)f).valeur )
-		return 1;
-	return 0;
+	return (*f).tete;
+}
+
+void file_afficher ( file * f )
+{
+	
 }
