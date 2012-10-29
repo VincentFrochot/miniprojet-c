@@ -1,16 +1,21 @@
-#ifndef TRIER_H
-#define TRIER_H
-
 /*
   * Provides:
   * - 
   * Version: ...
-  * Author: Simon Jornet / Vincent Frochot
-  * Copyright: 2012 - Simon Jornet, Vincent Frochot
- */
+  * Author: Vincent Frochot / Simon Jornet
+  * Copyright: 2012 - Vincent Frochot, Simon Jornet
+*/
 
-extern char * fusion (char tab1[], char tab2[]);
-extern char * decoupe (char tab[], int longueur);
+#ifndef TRIER_H
+#define TRIER_H
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "trier.h"
+#include "file.h"
+
+extern file * trier_monotonie ( file * ) ;
 
 
 #endif
